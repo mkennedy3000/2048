@@ -7,6 +7,21 @@
 </head>
 <body ng-app="app">
 
+    <div ng-controller="GameController as ctrl">
+
+        <div id="heading">
+            <h1 class="title">2048</h1>
+            <div class="scores-container">
+                <div class="score-container">{{ ctrl.game.currentScore }}</div>
+                <div class="best-container">{{ ctrl.game.highScore }}</div>
+            </div>
+        </div>
+
+        <div id="game-container">
+            <div 2048-grid ng-model="ctrl.game"></div>
+        </div>
+    </div>
+
     <script src="static/js/app.js"></script>
 </body>
 </html>

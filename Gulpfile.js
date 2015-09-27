@@ -7,17 +7,19 @@ var plugins = require('gulp-load-plugins')();
 // JS
 //----------------------------------------------------------------------------------------------------------------------
 
-gulp.task('js', function () {
+gulp.task('js', ['templates'], function () {
     gulp.src([
         './bower_components/angular/angular.min.js',
+        './tmp/templates.js',
         './src/app/**/*.js',
         '!./src/app/**/*.spec.js'
     ])
         .pipe(plugins.order([
             '**/angular.min.js',
             'src/app/**/*.module.js',
+            '**/templates.js',
             'src/app/**/*.js'
-        ]))
+        ], {base: './'}))
         .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest('./dist/static/js'));
 });
@@ -45,6 +47,12 @@ gulp.task('copyIndexPage', function () {
         .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('templates', function () {
+    gulp.src('src/app/**/*.html')
+        .pipe(plugins.angularTemplatecache('templates.js'))
+        .pipe(gulp.dest('tmp'));
+});
+
 //----------------------------------------------------------------------------------------------------------------------
 // Resources
 //----------------------------------------------------------------------------------------------------------------------
@@ -54,7 +62,7 @@ gulp.task('copyImages', function () {
 });
 
 //----------------------------------------------------------------------------------------------------------------------
-// Resources
+// Default tasks
 //----------------------------------------------------------------------------------------------------------------------
 
 gulp.task('default', [

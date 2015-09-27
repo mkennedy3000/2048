@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('app', ['game', 'templates']);
+        .module('game', ['grid']);
 })();
