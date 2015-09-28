@@ -1,7 +1,7 @@
-describe('game.gameManager', function () {
+describe('app.game.gameManager', function () {
 
     // Inject the Game module into this test
-    beforeEach(module('game'));
+    beforeEach(module('app.game'));
 
     // Mock gridService
     var _gridService;

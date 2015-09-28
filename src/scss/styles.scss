@@ -1,1 +1,91 @@
 @import "../../bower_components/bootstrap/scss/bootstrap";
+
+$width: 400px;
+$tile-count: 4;
+$tile-padding: 15px;
+$tile-size: ($width - $tile-padding * ($tile-count + 1)) / $tile-count;
+
+$colors:  #EEE4DA, // 2
+          #EAE0C8, // 4
+          #F59563, // 8
+          #3399ff, // 16
+          #ffa333, // 32
+          #cef030, // 64
+          #E8D8CE, // 128
+          #990303, // 256
+          #6BA5DE, // 512
+          #DCAD60, // 1024
+          #B60022; // 2048
+
+@function power ($x, $n) {
+  $ret: 1;
+
+  @if $n >= 0 {
+    @for $i from 1 through $n {
+      $ret: $ret * $x;
+    }
+  } @else {
+    @for $i from $n to 0 {
+      $ret: $ret / $x;
+    }
+  }
+
+  @return $ret;
+}
+
+#game {
+  position: relative;
+  width: $width;
+  height: $width;
+
+  .grid-container {
+    position: absolute;
+    z-index: 1;
+    margin: 0 auto;
+
+    .grid-cell {
+      width: $tile-size;
+      height: $tile-size;
+      margin-bottom: $tile-padding;
+      margin-right: $tile-padding;
+    }
+  }
+  .tile-container {
+    position: absolute;
+    z-index: 2;
+
+    .tile {
+      width: $tile-size;
+      height: $tile-size;
+      position: absolute;
+
+      // Dynamically create .position-#{x}-#{y} classes to mark
+      // where each tile will be placed
+      @for $x from 1 through $tile-count {
+        @for $y from 1 through $tile-count {
+          $zeroOffsetX: $x - 1;
+          $zeroOffsetY: $y - 1;
+          $newX: ($tile-size) * ($zeroOffsetX) + ($tile-padding * $zeroOffsetX);
+          $newY: ($tile-size) * ($zeroOffsetY) + ($tile-padding * $zeroOffsetY);
+
+          &.position-#{$zeroOffsetX}-#{$zeroOffsetY} {
+            -webkit-transform: translate($newX, $newY);
+            transform: translate($newX, $newY);
+          }
+        }
+      }
+
+      @for $i from 1 through length($colors) {
+        &.tile-#{power(2, $i)} .tile-inner {
+          background: nth($colors, $i)
+        }
+      }
+    }
+
+    .tile-inner {
+      height: 100%;
+      text-align: center;
+      line-height: $tile-size;
+    }
+  }
+}

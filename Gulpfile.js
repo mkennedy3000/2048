@@ -10,14 +10,15 @@ var plugins = require('gulp-load-plugins')();
 gulp.task('js', ['templates'], function () {
     gulp.src([
         './bower_components/angular/angular.min.js',
+        './bower_components/lodash/lodash.min.js',
         './tmp/templates.js',
         './src/app/**/*.js',
         '!./src/app/**/*.spec.js'
     ])
         .pipe(plugins.order([
-            '**/angular.min.js',
+            'bower_components/**/*',
             'src/app/**/*.module.js',
-            '**/templates.js',
+            'tmp/templates.js',
             'src/app/**/*.js'
         ], {base: './'}))
         .pipe(plugins.concat('app.js'))

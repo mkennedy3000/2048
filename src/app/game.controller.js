@@ -11,9 +11,6 @@
 
         var vm = this;
 
-        vm.game = {
-            currentScore: "0",
-            highScore: "10000"
-        }
+        vm.game = gameManager;
     }
 })();

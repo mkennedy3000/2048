@@ -2,34 +2,41 @@
     'use strict';
 
     angular
-        .module('game')
-        .service('gameManager', gameManager);
+        .module('app.game')
+        .factory('gameManager', gameManager);
 
     gameManager.$inject = ['gridService'];
 
     function gameManager(gridService) {
 
-        this.newGame = newGame;
-        this.move = move;
-        this.updateScore = updateScore;
-        this.movesAvailable = movesAvailable;
+        var service = {
+            gameSize: gridService.gameSize,
+            grid: gridService.grid,
+            move: move,
+            movesAvailable: movesAvailable,
+            newGame: newGame,
+            tiles: gridService.tiles,
+            updateScore: updateScore
+        };
+
+        return service;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        function newGame() {
-
-        }
 
         function move() {
 
         }
 
-        function updateScore(newScore) {
+        function movesAvailable() {
+            return gridService.anyCellsAvailable() || gridService.tileMatchesAvailable();
+        }
+
+        function newGame() {
 
         }
 
-        function movesAvailable() {
-            return gridService.anyCellsAvailable() || gridService.tileMatchesAvailable();
+        function updateScore(newScore) {
+
         }
     }
 })();

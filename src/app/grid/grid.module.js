@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('grid', []);
+        .module('app.grid', ['app.core']);
 })();

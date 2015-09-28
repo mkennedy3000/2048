@@ -3,17 +3,16 @@
 
     angular
         .module('app.grid')
-        .directive('2048Grid', grid);
+        .directive('2048Tile', tile);
 
-    function grid() {
+    function tile() {
 
         return {
             restrict: 'A',
-            require: 'ngModel',
             scope: {
                 ngModel: '='
             },
-            templateUrl: 'grid/grid.html'
+            templateUrl: 'grid/tile.html'
         }
     }
 })();
