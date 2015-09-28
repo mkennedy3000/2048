@@ -5,9 +5,9 @@
         .module('app.grid')
         .factory('gridService', gridService);
 
-    gridService.$inject = ['Tile'];
+    gridService.$inject = ['Tile', '_'];
 
-    function gridService(Tile) {
+    function gridService(Tile, _) {
 
         var service = {
             anyCellsAvailable: anyCellsAvailable,
