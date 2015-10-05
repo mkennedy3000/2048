@@ -5,9 +5,9 @@
         .module('app')
         .controller('GameController', GameController);
 
-    GameController.$inject = ['gameManager', 'keyboardService'];
+    GameController.$inject = ['$scope', 'gameManager', 'keyboardService'];
 
-    function GameController(gameManager, keyboardService) {
+    function GameController($scope, gameManager, keyboardService) {
 
         var vm = this;
 
@@ -33,7 +33,7 @@
         function startGame() {
 
             keyboardService.on(function(dir) {
-                console.log(dir);
+                $scope.$apply(vm.game.move(dir));
             });
         }
     }

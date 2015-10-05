@@ -22,7 +22,7 @@
     };
 
     angular
-        .module('app.input.keyboard')
+        .module('app.input.direction')
         .constant('DIRECTION', DIRECTION)
         .constant('KEY_CODE_TO_DIRECTION', KEY_CODE_TO_DIRECTION);
 })();

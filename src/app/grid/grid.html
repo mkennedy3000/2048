@@ -7,7 +7,7 @@
     <div class="tile-container">
         <div 2048-tile
              ng-model='tile'
-             ng-repeat='tile in ngModel.tiles track by $index'>
+             ng-repeat='tile in ngModel.tiles track by $id(tile.id || $index)'>
         </div>
     </div>
 </div>

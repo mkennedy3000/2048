@@ -5,9 +5,9 @@
         .module('app.input.keyboard')
         .factory('keyboardService', keyboardService);
 
-    keyboardService.$inject = ['$document', '_', 'DIRECTION', 'KEY_CODE_TO_DIRECTION'];
+    keyboardService.$inject = ['$document', '_', 'directionService'];
 
-    function keyboardService($document, _, DIRECTION, KEY_CODE_TO_DIRECTION) {
+    function keyboardService($document, _, directionService) {
 
         var service = {
             keyEventHandlers: [],
@@ -24,8 +24,8 @@
 
             $document.bind('keydown', function(e) {
 
-                var direction = KEY_CODE_TO_DIRECTION[e.which];
-                if (!_.isUndefined(direction)) {
+                var direction = directionService.getDirectionForKeyCode(e.which);
+                if (!_.isNull(direction)) {
                     e.preventDefault();
                     handleKeyEvent(direction, e);
                 }

@@ -2,5 +2,8 @@
     'use strict';
 
     angular
-        .module('app.input.keyboard', ['app.core']);
+        .module('app.input.keyboard', [
+            'app.core',
+            'app.input.direction'
+        ]);
 })();

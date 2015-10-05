@@ -3,6 +3,7 @@
 
     angular
         .module('app.input', [
+            'app.input.direction',
             'app.input.keyboard',
             'app.input.touch'
         ]);
