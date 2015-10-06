@@ -1,17 +1,16 @@
 {
   "name": "2048",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "authors": [
     "Mark Kennedy <mkennedy3000@gmail.com>"
   ],
   "description": "AngularJS implementation of 2048 by Gabriele Cirulli",
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    ".gitignore",
+    "Gulpfile.js",
+    "src/**/*",
+    "karma.conf.js"
   ],
   "dependencies": {
     "angular": "~1.4.6",
