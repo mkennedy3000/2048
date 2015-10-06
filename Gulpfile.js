@@ -9,6 +9,7 @@ var plugins = require('gulp-load-plugins')();
 
 gulp.task('js', ['templates'], function () {
     gulp.src([
+        './bower_components/jquery/dist/jquery.min.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-cookies/angular-cookies.min.js',
         './bower_components/lodash/lodash.min.js',
@@ -17,6 +18,7 @@ gulp.task('js', ['templates'], function () {
         '!./src/app/**/*.spec.js'
     ])
         .pipe(plugins.order([
+            '**/jquery/**',
             '**/angular/**',
             'bower_components/**/*',
             'src/app/**/*.module.js',

@@ -14,6 +14,7 @@
         vm.game = gameManager;
         vm.newGame = newGame;
         vm.startGame = startGame;
+        vm.hideWinOverlay = hideWinOverlay;
 
         activate();
 
@@ -22,6 +23,11 @@
         function activate() {
 
             newGame();
+        }
+
+        function hideWinOverlay() {
+
+            $('#you-win').addClass('ng-hide');
         }
 
         function newGame() {

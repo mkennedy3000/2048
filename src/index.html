@@ -7,17 +7,33 @@
 </head>
 <body ng-app="app">
 
-    <div ng-controller="GameController as ctrl">
+    <div ng-cloak ng-controller="GameController as ctrl">
 
         <div id="heading">
             <h1 class="title">2048</h1>
             <div class="scores-container">
-                <div class="score-container">{{ ctrl.game.currentScore }}</div>
-                <div class="best-container">{{ ctrl.game.highScore }}</div>
+                <div class="score-container">Current Score: {{ ctrl.game.currentScore }}</div>
+                <div class="best-container">High Score: {{ ctrl.game.highScore }}</div>
             </div>
         </div>
 
         <div id="game-container">
+            <div id="game-over"
+                 ng-if="ctrl.game.gameOver"
+                 class="game-overlay">
+                Game over
+                <div class="lower">
+                    <a class="retry-button" ng-click='ctrl.newGame()'>Try again</a>
+                </div>
+            </div>
+            <div id="you-win"
+                 ng-if="ctrl.game.win"
+                 class="game-overlay">
+                You win!
+                <div class="lower">
+                    <a class="retry-button" ng-click="ctrl.hideWinOverlay()">Continue</a>
+                </div>
+            </div>
             <div 2048-grid ng-model="ctrl.game"></div>
         </div>
     </div>
