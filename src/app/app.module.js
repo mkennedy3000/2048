@@ -2,5 +2,9 @@
     'use strict';
 
     angular
-        .module('app', []);
+        .module('app', [
+            'app.game',
+            'app.input',
+            'templates'
+        ]);
 })();
