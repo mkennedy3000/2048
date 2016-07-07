@@ -1,7 +1,5 @@
 export class Tile {
 
-    public merged: boolean;
-
     constructor(
         public value: number,
 
@@ -16,6 +14,5 @@ export class Tile {
     public isEmpty(): boolean {
         return this.value <= 0;
     }
-
 
 }
