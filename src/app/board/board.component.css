@@ -1,0 +1,7 @@
+board {
+    display: flex;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: green;
+}
