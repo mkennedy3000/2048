@@ -7,6 +7,7 @@ import { AppState } from './app.service';
 import { BoardComponent } from './board/board.component';
 import {StateService} from "./state/state.service";
 import {State} from "./state/state.model";
+import {Grid} from "./structs/grid";
 
 /*
  * App Component

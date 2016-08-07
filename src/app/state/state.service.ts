@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 import {State} from "./state.model";
-import {Pair} from '../structs/pair.model';
-import {Tile} from "../board/tile/tile.model.ts";
+import {Pair} from '../structs/pair';
+import {Tile} from "../board/tile/tile.model";
 
 @Injectable()
 export class StateService {
