@@ -8,7 +8,6 @@
     "rimraf": "rimraf",
     "tslint": "tslint",
     "typedoc": "typedoc",
-    "typings": "typings",
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
     "webdriver-manager": "webdriver-manager",

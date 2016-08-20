@@ -8,6 +8,8 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 */
 import { PLATFORM_PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
+import { provide } from '@angular/core';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 
 /*
@@ -15,6 +17,12 @@ import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
 * our top level component that holds all of our components
 */
 import { App, APP_PROVIDERS } from './app';
+
+export class MyHammerConfig extends HammerGestureConfig  {
+  overrides = <any>{
+    'swipe': { direction: Hammer.DIRECTION_VERTICAL }
+  }
+}
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
@@ -27,6 +35,7 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PLATFORM_PROVIDERS,
     ...ENV_PROVIDERS,
     ...APP_PROVIDERS,
+      provide(HAMMER_GESTURE_CONFIG, {useClass: MyHammerConfig})
   ])
   .then(decorateComponentRef)
   .catch(err => console.error(err));

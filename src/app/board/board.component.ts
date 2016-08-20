@@ -31,17 +31,37 @@ export class BoardComponent {
     private slideTiles(keyCode) {
         switch (keyCode) {
             case 37:
-                this.state = this.stateService.slideLeft(this.state);
+                this.slideLeft();
                 break;
             case 38:
-                this.state = this.stateService.slideUp(this.state);
+                this.slideUp();
                 break;
             case 39:
-                this.state = this.stateService.slideRight(this.state);
+                this.slideRight();
                 break;
             case 40:
-                this.state = this.stateService.slideDown(this.state);
+                this.slideDown();
                 break;
         }
+    }
+
+    @HostListener('swipeleft')
+    private slideLeft() {
+        this.state = this.stateService.slideLeft(this.state);
+    }
+
+    @HostListener('swiperight')
+    private slideRight() {
+        this.state = this.stateService.slideRight(this.state);
+    }
+
+    @HostListener('swipeup')
+    private slideUp() {
+        this.state = this.stateService.slideUp(this.state);
+    }
+
+    @HostListener('swipedown')
+    private slideDown() {
+        this.state = this.stateService.slideDown(this.state);
     }
 }

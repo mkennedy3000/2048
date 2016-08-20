@@ -32,7 +32,7 @@ import {State} from "./state/state.model";
 })
 export class App {
 
-  name = 'Angular 2 2048';
+  name = '2048';
   state: State;
 
   constructor(
