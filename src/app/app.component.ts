@@ -7,7 +7,6 @@ import { AppState } from './app.service';
 import { BoardComponent } from './board/board.component';
 import {StateService} from "./state/state.service";
 import {State} from "./state/state.model";
-import {Grid} from "./structs/grid";
 
 /*
  * App Component
@@ -19,12 +18,16 @@ import {Grid} from "./structs/grid";
   directives: [BoardComponent],
   providers: [StateService],
   template: `
-    {{name}}
-    <br><br>
-    <button (click)="newGame()">New Game</button>
-    <button (click)="slideLeft()">Slide Left</button>
-    <br><br>
-    <board [state]="state"></board>
+    <div class="ui centered grid container">
+        <div class="sixteen wide column">
+            <div class="ui padded basic segment">
+                <h1 class="ui header">{{name}}</h1>
+            </div>
+            <div class="ui button" (click)="newGame()">New Game</div>
+            <div class="ui hidden divider"></div>
+            <board [state]="state"></board>
+        </div>
+    </div>
   `
 })
 export class App {
@@ -39,16 +42,8 @@ export class App {
     this.newGame();
   }
 
-  ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-  }
-
   public newGame() {
     this.state = this.stateService.getNewGameState();
-  }
-
-  public slideLeft() {
-    this.state = this.stateService.slide(this.state);
   }
 
 }

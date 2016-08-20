@@ -1,11 +1,7 @@
 tile {
-    display: block;
     position: absolute;
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    color: green;
-    font-weight: bold;
-    line-height: 80px;
-    text-align: center;
+    display: block;
+    width: 72px;
+    height: 72px;
+    line-height: 36px;
 }

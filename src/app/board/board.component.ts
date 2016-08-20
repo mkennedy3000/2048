@@ -1,21 +1,47 @@
 import { Component, HostListener, Input, ViewEncapsulation } from '@angular/core'
 import { TileComponent } from "./tile/tile.component";
 import {State} from "../state/state.model";
+import {StateService} from "../state/state.service";
 
 @Component({
     selector: 'board',
     encapsulation: ViewEncapsulation.None,
     directives: [TileComponent],
-    template: '<tile *ngFor="let tile of state.tiles" [tile]="tile"></tile>',
+    template: `
+        <div class="ui grid">
+            <div class="four column row" *ngFor="let row of state.grid.rows()">
+                <div class="grey column" *ngFor="let tile of row">
+                    <tile [tile]="tile"></tile>
+                </div>
+            </div>
+        </div>
+    `,
     styles: [require('./board.component.css')]
 })
 export class BoardComponent {
 
-    @HostListener('document:keydown', ['$event.keyCode'])
-    public slideTiles(keyCode) {
-        console.log(keyCode)
-    }
-
     @Input()
     state: State;
+
+    constructor(
+        private stateService: StateService
+    ){}
+
+    @HostListener('document:keydown', ['$event.keyCode'])
+    private slideTiles(keyCode) {
+        switch (keyCode) {
+            case 37:
+                this.state = this.stateService.slideLeft(this.state);
+                break;
+            case 38:
+                this.state = this.stateService.slideUp(this.state);
+                break;
+            case 39:
+                this.state = this.stateService.slideRight(this.state);
+                break;
+            case 40:
+                this.state = this.stateService.slideDown(this.state);
+                break;
+        }
+    }
 }

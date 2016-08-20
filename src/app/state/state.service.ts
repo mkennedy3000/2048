@@ -5,6 +5,7 @@ import {
 import {State} from "./state.model";
 import {Pair} from '../structs/pair';
 import {Tile} from "../board/tile/tile.model";
+import {Grid} from "@mkennedy3000/grid";
 
 @Injectable()
 export class StateService {
@@ -14,9 +15,10 @@ export class StateService {
     
     public getNewGameState(): State {
         let state = new State();
-        state.tiles = Array.from({length: this.BOARD_WIDTH * this.BOARD_HEIGHT}, (v, k) => {
+        let tiles = Array.from({length: this.BOARD_WIDTH * this.BOARD_HEIGHT}, (v, k) => {
             return new Tile(0, k % this.BOARD_WIDTH, Math.floor(k / this.BOARD_WIDTH));
         });
+        state.grid = new Grid(tiles, this.BOARD_WIDTH, this.BOARD_HEIGHT);
 
         return this.addRandomTiles(state, 2);
     }
@@ -31,8 +33,9 @@ export class StateService {
 
     private addRandomTile(state: State): State {
         let tile;
+        if (!state.grid.rows().some(row => row.some(tile => tile.isEmpty()))) return state;
         do {
-            tile = state.tiles[this.getRandomInt(0, 16)]
+            tile = state.grid.get(this.getRandomInt(0, state.grid.width), this.getRandomInt(0, state.grid.height));
         } while (!tile.isEmpty());
 
         tile.value = this.getRandomInt(0, 4) > 0 ? 2 : 4;
@@ -40,23 +43,32 @@ export class StateService {
         return state;
     }
 
-    public slide(state: State): State {
-        return this.addRandomTile(this.slideLeft(state));
-    }
-
     private getRandomInt(min, max):number {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    private slideLeft(state: State): State {
-        let row1 = this.slideTilesLeft(state.tiles.slice(this.BOARD_WIDTH * 0, this.BOARD_WIDTH * 1));
-        let row2 = this.slideTilesLeft(state.tiles.slice(this.BOARD_WIDTH * 1, this.BOARD_WIDTH * 2));
-        let row3 = this.slideTilesLeft(state.tiles.slice(this.BOARD_WIDTH * 2, this.BOARD_WIDTH * 3));
-        let row4 = this.slideTilesLeft(state.tiles.slice(this.BOARD_WIDTH * 3, this.BOARD_WIDTH * 4));
-
+    public slideLeft(state: State): State {
         let update = new State();
-        update.tiles = row1.concat(row2, row3, row4);
-        return update;
+        update.grid = Grid.withRows(state.grid.rows().map(row => this.slideTilesLeft(row)));
+        return this.addRandomTile(update);
+    }
+
+    public slideRight(state: State): State {
+        let update = new State();
+        update.grid = Grid.withRows(state.grid.rows().map(row => this.slideTilesLeft(row.reverse()).reverse()));
+        return this.addRandomTile(update);
+    }
+
+    public slideUp(state: State): State {
+        let update = new State();
+        update.grid = Grid.withCols(state.grid.cols().map(col => this.slideTilesLeft(col)));
+        return this.addRandomTile(update);
+    }
+
+    public slideDown(state: State): State {
+        let update = new State();
+        update.grid = Grid.withCols(state.grid.cols().map(col => this.slideTilesLeft(col.reverse()).reverse()));
+        return this.addRandomTile(update);
     }
 
     private slideTilesLeft(tiles: Tile[]): Tile[] {
